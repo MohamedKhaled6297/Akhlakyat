@@ -12,7 +12,7 @@ const APP_CONFIG = {
       title: "تسجيل متطوع",
       description: "تسجيل بيانات المتطوع قبل إضافة المشاركات.",
       icon: "👤",
-      url: "PASTE_REGISTER_URL_HERE"
+      url: "https://script.google.com/macros/s/AKfycbwmhq-k0fexP1qrMC2gH24TlNvfC3kL3ieA5lsb1nxLkcF1y8QferKu-X1odS6urLLWLg/exec"
     },
     {
       title: "إضافة مشاركة",
