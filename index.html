@@ -1013,6 +1013,20 @@ body {
   font-weight: 700;
 }
 
+
+
+/* V30 Apps Script hidden data bridge */
+.akhlaqiat-api-bridge {
+  position: fixed !important;
+  width: 1px !important;
+  height: 1px !important;
+  left: -10000px !important;
+  top: -10000px !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 </style>
 
 </head>
@@ -1129,7 +1143,7 @@ body {
 
 
           <button
-            id="refreshالصفحةButton"
+            id="refreshDashboardButton"
             class="refresh-button"
             type="button">
             تحديث البيانات
@@ -1922,17 +1936,17 @@ let dashboardRequestId = 0;
 
 document.addEventListener(
   "DOMContentLoaded",
-  initializeالصفحة
+  initializeDashboardApp
 );
 
 
-function initializeالصفحة() {
+function initializeDashboardApp() {
 
   setupStaticContent();
 
   setupFilters();
 
-  loadالصفحة();
+  loadDashboardData();
 
 }
 
@@ -2036,7 +2050,7 @@ function setupFilters() {
 
   const refreshButton =
     document.getElementById(
-      "refreshالصفحةButton"
+      "refreshDashboardButton"
     );
 
 
@@ -2066,7 +2080,7 @@ function setupFilters() {
 
     thirdSelect.addEventListener(
       "change",
-      loadالصفحة
+      loadDashboardData
     );
 
   }
@@ -2126,7 +2140,7 @@ function setupFilters() {
 
     yearSelect.addEventListener(
       "change",
-      loadالصفحة
+      loadDashboardData
     );
 
   }
@@ -2136,7 +2150,7 @@ function setupFilters() {
 
     refreshButton.addEventListener(
       "click",
-      loadالصفحة
+      loadDashboardData
     );
 
   }
@@ -2144,7 +2158,7 @@ function setupFilters() {
 }
 
 
-function loadالصفحة() {
+function loadDashboardData() {
 
   const third =
     document.getElementById(
@@ -2162,85 +2176,71 @@ function loadالصفحة() {
     "2026";
 
 
-  setالصفحةLoading(
+  setDashboardLoading(
     true
   );
+
+
+  clearDashboardBridge_();
 
 
   const requestId =
     ++dashboardRequestId;
 
 
-  const callbackName =
-    "__akhlaqiatالصفحةCallback_" +
-    requestId;
+  const token =
+    "akh_" +
+    Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .slice(2);
 
 
-  window[
-    callbackName
-  ] =
-    function (
-      response
-    ) {
+  window.__akhlaqiatBridgeState = {
 
-      cleanupJsonp(
-        callbackName,
-        script
-      );
+    requestId:
+      String(
+        requestId
+      ),
 
+    token:
+      token,
 
-      if (
-        requestId !==
-        dashboardRequestId
-      ) {
+    iframe:
+      null,
 
-        return;
+    timeout:
+      null
 
-      }
+  };
 
 
-      if (
-        !response ||
-        !response.success
-      ) {
-
-        showالصفحةError(
-          response?.message ||
-          "تعذر تحميل بيانات الصفحة."
-        );
-
-        setالصفحةLoading(
-          false
-        );
-
-        return;
-
-      }
-
-
-      renderالصفحة(
-        response
-      );
-
-
-      setالصفحةLoading(
-        false
-      );
-
-    };
-
-
-  const script =
+  const iframe =
     document.createElement(
-      "script"
+      "iframe"
     );
+
+
+  iframe.id =
+    "akhlaqiatApiBridge";
+
+
+  iframe.className =
+    "akhlaqiat-api-bridge";
+
+
+  iframe.setAttribute(
+    "aria-hidden",
+    "true"
+  );
 
 
   const query =
     new URLSearchParams({
 
       action:
-        "publicالصفحة",
+        "publicDashboardBridge",
 
       third:
         third,
@@ -2248,36 +2248,39 @@ function loadالصفحة() {
       year:
         year,
 
-      callback:
-        callbackName,
+      requestId:
+        String(
+          requestId
+        ),
+
+      token:
+        token,
 
       t:
-        Date.now()
+        String(
+          Date.now()
+        )
+
     });
 
 
-  script.src =
+  iframe.src =
     DASHBOARD_CONFIG.apiUrl +
     "?" +
     query.toString();
 
 
-  script.async =
-    true;
-
-
-  script.onerror =
+  iframe.onerror =
     function () {
 
-      cleanupJsonp(
-        callbackName,
-        script
-      );
+      const state =
+        window.__akhlaqiatBridgeState;
 
 
       if (
-        requestId !==
-        dashboardRequestId
+        !state ||
+        state.token !==
+          token
       ) {
 
         return;
@@ -2285,65 +2288,233 @@ function loadالصفحة() {
       }
 
 
-      showالصفحةError(
-        "تعذر الاتصال بمنظومة أخلاقيات. تأكد من نشر آخر Version من Apps Script."
+      clearDashboardBridge_();
+
+
+      showDashboardError(
+        "تعذر فتح قناة البيانات مع منظومة أخلاقيات."
       );
 
 
-      setالصفحةLoading(
+      setDashboardLoading(
         false
       );
 
     };
 
 
+  window
+    .__akhlaqiatBridgeState
+    .iframe =
+      iframe;
+
+
+  window
+    .__akhlaqiatBridgeState
+    .timeout =
+      setTimeout(
+        function () {
+
+          const state =
+            window.__akhlaqiatBridgeState;
+
+
+          if (
+            !state ||
+            state.token !==
+              token
+          ) {
+
+            return;
+
+          }
+
+
+          clearDashboardBridge_();
+
+
+          showDashboardError(
+            "استغرق تحميل البيانات وقتًا أطول من المتوقع. حاول تحديث البيانات مرة أخرى."
+          );
+
+
+          setDashboardLoading(
+            false
+          );
+
+        },
+        90000
+      );
+
+
   document.body.appendChild(
-    script
+    iframe
   );
 
 }
 
 
-function cleanupJsonp(
-  callbackName,
-  script
-) {
-
-  try {
-
-    delete window[
-      callbackName
-    ];
-
-  }
-  catch (
-    ignored
+window.addEventListener(
+  "message",
+  function (
+    event
   ) {
 
-    window[
-      callbackName
-    ] =
-      undefined;
+    const state =
+      window.__akhlaqiatBridgeState;
+
+
+    if (
+      !state ||
+      !state.iframe
+    ) {
+
+      return;
+
+    }
+
+
+    /*
+     * Verify that the message came from the exact hidden iframe
+     * created for this request.
+     */
+    if (
+      event.source !==
+      state.iframe.contentWindow
+    ) {
+
+      return;
+
+    }
+
+
+    const message =
+      event.data ||
+      {};
+
+
+    if (
+      message.channel !==
+      "AKHLAQIAT_PUBLIC_DASHBOARD_V30"
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      String(
+        message.requestId ||
+        ""
+      ) !==
+      state.requestId
+    ) {
+
+      return;
+
+    }
+
+
+    if (
+      String(
+        message.token ||
+        ""
+      ) !==
+      state.token
+    ) {
+
+      return;
+
+    }
+
+
+    const response =
+      message.payload;
+
+
+    clearDashboardBridge_();
+
+
+    if (
+      !response ||
+      !response.success
+    ) {
+
+      showDashboardError(
+        response?.message ||
+        "تعذر تحميل بيانات أخلاقيات."
+      );
+
+
+      setDashboardLoading(
+        false
+      );
+
+
+      return;
+
+    }
+
+
+    renderDashboardData(
+      response
+    );
+
+
+    setDashboardLoading(
+      false
+    );
+
+  }
+);
+
+
+function clearDashboardBridge_() {
+
+  const state =
+    window.__akhlaqiatBridgeState;
+
+
+  if (!state) {
+
+    return;
 
   }
 
 
   if (
-    script &&
-    script.parentNode
+    state.timeout
   ) {
 
-    script.parentNode
+    clearTimeout(
+      state.timeout
+    );
+
+  }
+
+
+  if (
+    state.iframe &&
+    state.iframe.parentNode
+  ) {
+
+    state.iframe
+      .parentNode
       .removeChild(
-        script
+        state.iframe
       );
 
   }
 
+
+  window.__akhlaqiatBridgeState =
+    null;
+
 }
 
 
-function renderالصفحة(
+function renderDashboardData(
   data
 ) {
 
@@ -3181,7 +3352,7 @@ function downloadAkhlaqiatLogo() {
 
   if (!fileId) {
 
-    showالصفحةError(
+    showDashboardError(
       "لم يتم تحديد لوجو الثلث."
     );
 
@@ -3202,7 +3373,7 @@ function downloadAkhlaqiatLogo() {
 }
 
 
-function setالصفحةLoading(
+function setDashboardLoading(
   loading
 ) {
 
@@ -3214,7 +3385,7 @@ function setالصفحةLoading(
 
   const button =
     document.getElementById(
-      "refreshالصفحةButton"
+      "refreshDashboardButton"
     );
 
 
@@ -3248,7 +3419,7 @@ function setالصفحةLoading(
 }
 
 
-function showالصفحةError(
+function showDashboardError(
   message
 ) {
 
