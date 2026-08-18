@@ -2334,7 +2334,7 @@ function loadDashboardData() {
 
 
           showDashboardError(
-            "استغرق تحميل البيانات وقتًا أطول من المتوقع. حاول تحديث البيانات مرة أخرى."
+            "لم تصل بيانات Apps Script إلى الصفحة خلال الوقت المتوقع. تأكد من نشر V31 ثم أعد المحاولة."
           );
 
 
@@ -2343,7 +2343,7 @@ function loadDashboardData() {
           );
 
         },
-        90000
+        45000
       );
 
 
@@ -2375,13 +2375,37 @@ window.addEventListener(
 
 
     /*
-     * Verify that the message came from the exact hidden iframe
-     * created for this request.
+     * Apps Script HtmlService can deliver the message from its
+     * sandboxed googleusercontent frame rather than the outer
+     * script.google.com iframe window.
+     *
+     * Validate the origin + random request token instead of
+     * requiring event.source === iframe.contentWindow.
      */
-    if (
-      event.source !==
-      state.iframe.contentWindow
-    ) {
+    const origin =
+      String(
+        event.origin ||
+        ""
+      );
+
+
+    const trustedGoogleOrigin =
+      (
+        origin ===
+          "https://script.google.com"
+      ) ||
+      (
+        origin ===
+          "https://script.googleusercontent.com"
+      ) ||
+      (
+        origin.endsWith(
+          ".googleusercontent.com"
+        )
+      );
+
+
+    if (!trustedGoogleOrigin) {
 
       return;
 
@@ -2395,7 +2419,7 @@ window.addEventListener(
 
     if (
       message.channel !==
-      "AKHLAQIAT_PUBLIC_DASHBOARD_V30"
+      "AKHLAQIAT_PUBLIC_DASHBOARD_V31"
     ) {
 
       return;
@@ -2427,6 +2451,18 @@ window.addEventListener(
       return;
 
     }
+
+
+    console.log(
+      "✅ Akhlaqiat V31 bridge message received",
+      {
+        origin:
+          origin,
+
+        requestId:
+          message.requestId
+      }
+    );
 
 
     const response =
