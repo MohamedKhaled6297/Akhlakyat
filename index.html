@@ -12,7 +12,7 @@
 
   <meta
     name="description"
-    content="الصفحة مشروع أخلاقيات - إحصائيات الثلث والروابط المهمة"
+    content="Dashboard مشروع أخلاقيات - إحصائيات الثلث والروابط المهمة"
   >
 
   <title>
@@ -1001,30 +1001,126 @@ body {
 
 
 
-/* V29 - Combined ranking */
+/* V32 combined V6 + points leaderboard */
 
-.leader-metrics.single-ranking {
-  grid-template-columns: 1fr;
+.leaders-panel {
+  margin-top: 13px;
 }
 
-.leader-metrics.single-ranking .leader-metric-title small {
-  color: #8b959d;
+.leader-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.leader-group {
+  padding: 17px;
+  border: 1px solid #dfe8e5;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #ffffff, #f8fbfa);
+}
+
+.leader-group-heading {
+  margin-bottom: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #e7ecee;
+}
+
+.leader-group-heading span {
+  display: block;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.leader-group-heading h3 {
+  margin: 3px 0 0;
+  font-size: 16px;
+}
+
+.top-three-list {
+  display: grid;
+  gap: 8px;
+}
+
+.top-three-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  gap: 9px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #e7ecee;
+  border-radius: 12px;
+  background: #fbfcfc;
+}
+
+.top-three-row:first-child {
+  border-color: #ead28b;
+  background: #fffaf0;
+}
+
+.top-three-rank {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: #14654f;
+  background: #e8f6f1;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.top-three-row:first-child .top-three-rank {
+  color: #76570c;
+  background: #fff0bd;
+}
+
+.top-three-name {
+  min-width: 0;
+}
+
+.top-three-name strong {
+  display: block;
+  overflow: hidden;
+  color: #26323c;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-three-name small {
+  display: block;
+  margin-top: 2px;
+  color: #89939b;
   font-size: 8px;
-  font-weight: 700;
 }
 
+.top-three-values {
+  min-width: 75px;
+  text-align: left;
+}
 
+.top-three-values strong {
+  display: block;
+  color: #13654f;
+  font-size: 12px;
+}
 
-/* V30 Apps Script hidden data bridge */
-.akhlaqiat-api-bridge {
-  position: fixed !important;
-  width: 1px !important;
-  height: 1px !important;
-  left: -10000px !important;
-  top: -10000px !important;
-  border: 0 !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+.top-three-values small {
+  display: block;
+  color: #805e0c;
+  font-size: 9px;
+}
+
+.logo-download-link {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .leader-groups {
+    grid-template-columns: 1fr;
+  }
 }
 
 </style>
@@ -1540,7 +1636,7 @@ body {
 
 
 
-    <!-- TOP THREE LEADERS -->
+    <!-- V32 COMBINED LEADERS -->
 
     <section class="panel leaders-panel">
 
@@ -1568,8 +1664,6 @@ body {
       <div class="leader-groups">
 
 
-        <!-- CAIRO / ALEX -->
-
         <div class="leader-group">
 
           <div class="leader-group-heading">
@@ -1584,36 +1678,13 @@ body {
 
           </div>
 
-
-          <div class="leader-metrics single-ranking">
-
-            <div class="leader-metric-box">
-
-              <div class="leader-metric-title">
-
-                <span>
-                  🏆 النسبة + النقاط
-                </span>
-
-                <small>
-                  أعلى 3 بدون أصفار
-                </small>
-
-              </div>
-
-              <div
-                id="cairoCombinedLeaders"
-                class="top-three-list">
-              </div>
-
-            </div>
-
+          <div
+            id="cairoCombinedLeaders"
+            class="top-three-list">
           </div>
 
         </div>
 
-
-        <!-- GOVERNORATES -->
 
         <div class="leader-group">
 
@@ -1629,30 +1700,9 @@ body {
 
           </div>
 
-
-          <div class="leader-metrics single-ranking">
-
-            <div class="leader-metric-box">
-
-              <div class="leader-metric-title">
-
-                <span>
-                  🏆 النسبة + النقاط
-                </span>
-
-                <small>
-                  أعلى 3 بدون أصفار
-                </small>
-
-              </div>
-
-              <div
-                id="governorateCombinedLeaders"
-                class="top-three-list">
-              </div>
-
-            </div>
-
+          <div
+            id="governorateCombinedLeaders"
+            class="top-three-list">
           </div>
 
         </div>
@@ -1834,13 +1884,13 @@ const DASHBOARD_CONFIG = {
     "https://script.google.com/macros/s/AKfycbwmhq-k0fexP1qrMC2gH24TlNvfC3kL3ieA5lsb1nxLkcF1y8QferKu-X1odS6urLLWLg/exec",
 
   /*
-   * الصورة التي تظهر أعلى اليمين.
+   * الصورة المعروضة أعلى اليمين.
    */
   displayLogoFileId:
     "14EBeMsNF1LmfHTm35VNkAboK9zWxF4vX",
 
   /*
-   * لوجو الثلث الذي ينزله زر التحميل - يظل كما هو.
+   * زر التحميل ينزّل لوجو الثلث القديم كما طلبت.
    */
   downloadLogoFileId:
     "1yo2xDMIn_YHQQ5_nYSmXiHLrl_jS-h8B",
@@ -1936,17 +1986,17 @@ let dashboardRequestId = 0;
 
 document.addEventListener(
   "DOMContentLoaded",
-  initializeDashboardApp
+  initializeDashboard
 );
 
 
-function initializeDashboardApp() {
+function initializeDashboard() {
 
   setupStaticContent();
 
   setupFilters();
 
-  loadDashboardData();
+  loadDashboard();
 
 }
 
@@ -2080,7 +2130,7 @@ function setupFilters() {
 
     thirdSelect.addEventListener(
       "change",
-      loadDashboardData
+      loadDashboard
     );
 
   }
@@ -2140,7 +2190,7 @@ function setupFilters() {
 
     yearSelect.addEventListener(
       "change",
-      loadDashboardData
+      loadDashboard
     );
 
   }
@@ -2150,7 +2200,7 @@ function setupFilters() {
 
     refreshButton.addEventListener(
       "click",
-      loadDashboardData
+      loadDashboard
     );
 
   }
@@ -2158,7 +2208,7 @@ function setupFilters() {
 }
 
 
-function loadDashboardData() {
+function loadDashboard() {
 
   const third =
     document.getElementById(
@@ -2181,106 +2231,31 @@ function loadDashboardData() {
   );
 
 
-  clearDashboardBridge_();
-
-
   const requestId =
     ++dashboardRequestId;
 
 
-  const token =
-    "akh_" +
-    Date.now() +
-    "_" +
-    Math.random()
-      .toString(36)
-      .slice(2);
+  const callbackName =
+    "__akhlaqiatDashboardCallback_" +
+    requestId;
 
 
-  window.__akhlaqiatBridgeState = {
+  window[
+    callbackName
+  ] =
+    function (
+      response
+    ) {
 
-    requestId:
-      String(
-        requestId
-      ),
-
-    token:
-      token,
-
-    iframe:
-      null,
-
-    timeout:
-      null
-
-  };
-
-
-  const iframe =
-    document.createElement(
-      "iframe"
-    );
-
-
-  iframe.id =
-    "akhlaqiatApiBridge";
-
-
-  iframe.className =
-    "akhlaqiat-api-bridge";
-
-
-  iframe.setAttribute(
-    "aria-hidden",
-    "true"
-  );
-
-
-  const query =
-    new URLSearchParams({
-
-      action:
-        "publicDashboardBridge",
-
-      third:
-        third,
-
-      year:
-        year,
-
-      requestId:
-        String(
-          requestId
-        ),
-
-      token:
-        token,
-
-      t:
-        String(
-          Date.now()
-        )
-
-    });
-
-
-  iframe.src =
-    DASHBOARD_CONFIG.apiUrl +
-    "?" +
-    query.toString();
-
-
-  iframe.onerror =
-    function () {
-
-      const state =
-        window.__akhlaqiatBridgeState;
+      cleanupJsonp(
+        callbackName,
+        script
+      );
 
 
       if (
-        !state ||
-        state.token !==
-          token
+        requestId !==
+        dashboardRequestId
       ) {
 
         return;
@@ -2288,11 +2263,27 @@ function loadDashboardData() {
       }
 
 
-      clearDashboardBridge_();
+      if (
+        !response ||
+        !response.success
+      ) {
+
+        showDashboardError(
+          response?.message ||
+          "تعذر تحميل بيانات Dashboard."
+        );
+
+        setDashboardLoading(
+          false
+        );
+
+        return;
+
+      }
 
 
-      showDashboardError(
-        "تعذر فتح قناة البيانات مع منظومة أخلاقيات."
+      renderDashboard(
+        response
       );
 
 
@@ -2303,183 +2294,63 @@ function loadDashboardData() {
     };
 
 
-  window
-    .__akhlaqiatBridgeState
-    .iframe =
-      iframe;
-
-
-  window
-    .__akhlaqiatBridgeState
-    .timeout =
-      setTimeout(
-        function () {
-
-          const state =
-            window.__akhlaqiatBridgeState;
-
-
-          if (
-            !state ||
-            state.token !==
-              token
-          ) {
-
-            return;
-
-          }
-
-
-          clearDashboardBridge_();
-
-
-          showDashboardError(
-            "لم تصل بيانات Apps Script إلى الصفحة خلال الوقت المتوقع. تأكد من نشر V31 ثم أعد المحاولة."
-          );
-
-
-          setDashboardLoading(
-            false
-          );
-
-        },
-        45000
-      );
-
-
-  document.body.appendChild(
-    iframe
-  );
-
-}
-
-
-window.addEventListener(
-  "message",
-  function (
-    event
-  ) {
-
-    const state =
-      window.__akhlaqiatBridgeState;
-
-
-    if (
-      !state ||
-      !state.iframe
-    ) {
-
-      return;
-
-    }
-
-
-    /*
-     * Apps Script HtmlService can deliver the message from its
-     * sandboxed googleusercontent frame rather than the outer
-     * script.google.com iframe window.
-     *
-     * Validate the origin + random request token instead of
-     * requiring event.source === iframe.contentWindow.
-     */
-    const origin =
-      String(
-        event.origin ||
-        ""
-      );
-
-
-    const trustedGoogleOrigin =
-      (
-        origin ===
-          "https://script.google.com"
-      ) ||
-      (
-        origin ===
-          "https://script.googleusercontent.com"
-      ) ||
-      (
-        origin.endsWith(
-          ".googleusercontent.com"
-        )
-      );
-
-
-    if (!trustedGoogleOrigin) {
-
-      return;
-
-    }
-
-
-    const message =
-      event.data ||
-      {};
-
-
-    if (
-      message.channel !==
-      "AKHLAQIAT_PUBLIC_DASHBOARD_V31"
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      String(
-        message.requestId ||
-        ""
-      ) !==
-      state.requestId
-    ) {
-
-      return;
-
-    }
-
-
-    if (
-      String(
-        message.token ||
-        ""
-      ) !==
-      state.token
-    ) {
-
-      return;
-
-    }
-
-
-    console.log(
-      "✅ Akhlaqiat V31 bridge message received",
-      {
-        origin:
-          origin,
-
-        requestId:
-          message.requestId
-      }
+  const script =
+    document.createElement(
+      "script"
     );
 
 
-    const response =
-      message.payload;
+  const query =
+    new URLSearchParams({
+
+      action:
+        "publicDashboard",
+
+      third:
+        third,
+
+      year:
+        year,
+
+      callback:
+        callbackName,
+
+      t:
+        Date.now()
+    });
 
 
-    clearDashboardBridge_();
+  script.src =
+    DASHBOARD_CONFIG.apiUrl +
+    "?" +
+    query.toString();
 
 
-    if (
-      !response ||
-      !response.success
-    ) {
+  script.async =
+    true;
+
+
+  script.onerror =
+    function () {
+
+      cleanupJsonp(
+        callbackName,
+        script
+      );
+
+
+      if (
+        requestId !==
+        dashboardRequestId
+      ) {
+
+        return;
+
+      }
+
 
       showDashboardError(
-        response?.message ||
-        "تعذر تحميل بيانات أخلاقيات."
+        "تعذر الاتصال بمنظومة أخلاقيات. تأكد من نشر آخر Version من Apps Script."
       );
 
 
@@ -2487,70 +2358,56 @@ window.addEventListener(
         false
       );
 
-
-      return;
-
-    }
+    };
 
 
-    renderDashboardData(
-      response
-    );
-
-
-    setDashboardLoading(
-      false
-    );
-
-  }
-);
-
-
-function clearDashboardBridge_() {
-
-  const state =
-    window.__akhlaqiatBridgeState;
-
-
-  if (!state) {
-
-    return;
-
-  }
-
-
-  if (
-    state.timeout
-  ) {
-
-    clearTimeout(
-      state.timeout
-    );
-
-  }
-
-
-  if (
-    state.iframe &&
-    state.iframe.parentNode
-  ) {
-
-    state.iframe
-      .parentNode
-      .removeChild(
-        state.iframe
-      );
-
-  }
-
-
-  window.__akhlaqiatBridgeState =
-    null;
+  document.body.appendChild(
+    script
+  );
 
 }
 
 
-function renderDashboardData(
+function cleanupJsonp(
+  callbackName,
+  script
+) {
+
+  try {
+
+    delete window[
+      callbackName
+    ];
+
+  }
+  catch (
+    ignored
+  ) {
+
+    window[
+      callbackName
+    ] =
+      undefined;
+
+  }
+
+
+  if (
+    script &&
+    script.parentNode
+  ) {
+
+    script.parentNode
+      .removeChild(
+        script
+      );
+
+  }
+
+}
+
+
+function renderDashboard(
   data
 ) {
 
@@ -2711,7 +2568,7 @@ function renderDashboardData(
   );
 
 
-  renderLeaderboards(
+  renderCombinedLeaderboardsV32(
     data.leaders ||
     {}
   );
@@ -2940,14 +2797,171 @@ function renderLeaderboards(
   leaders
 ) {
 
-  renderCombinedTopThreeList(
+  renderTopThreeList(
+    "cairoPercentLeaders",
+    leaders.cairoAlexByPercent ||
+    [],
+    "percent"
+  );
+
+
+  renderTopThreeList(
+    "cairoPointsLeaders",
+    leaders.cairoAlexByPoints ||
+    [],
+    "points"
+  );
+
+
+  renderTopThreeList(
+    "governoratePercentLeaders",
+    leaders.governoratesByPercent ||
+    [],
+    "percent"
+  );
+
+
+  renderTopThreeList(
+    "governoratePointsLeaders",
+    leaders.governoratesByPoints ||
+    [],
+    "points"
+  );
+
+}
+
+
+function renderTopThreeList(
+  containerId,
+  rows,
+  primaryMetric
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  if (
+    !rows ||
+    !rows.length
+  ) {
+
+    container.innerHTML =
+      emptyState(
+        "لا توجد نتائج V6 مطابقة."
+      );
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    rows.map(
+      function (
+        row,
+        index
+      ) {
+
+        const percentage =
+          row.percentDisplay ||
+          formatPercent(
+            row.percent
+          );
+
+
+        const points =
+          formatNumber(
+            row.points
+          );
+
+
+        const primary =
+          primaryMetric ===
+            "points"
+            ? (
+                points +
+                " نقطة"
+              )
+            : percentage;
+
+
+        const secondary =
+          primaryMetric ===
+            "points"
+            ? (
+                "V6 " +
+                percentage
+              )
+            : (
+                points +
+                " نقطة"
+              );
+
+
+        return `
+          <div class="top-three-row">
+
+            <span class="top-three-rank">
+              ${index + 1}
+            </span>
+
+            <div class="top-three-name">
+
+              <strong title="${escapeAttribute(row.name || "")}">
+                ${escapeHtml(row.name || "—")}
+              </strong>
+
+              <small>
+                ${formatNumber(row.participations || 0)}
+                مشاركة
+              </small>
+
+            </div>
+
+            <div class="top-three-values">
+
+              <strong>
+                ${escapeHtml(primary)}
+              </strong>
+
+              <small>
+                ${escapeHtml(secondary)}
+              </small>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+    )
+    .join("");
+
+}
+
+
+function renderCombinedLeaderboardsV32(
+  leaders
+) {
+
+  renderCombinedTopThreeV32_(
     "cairoCombinedLeaders",
     leaders.cairoAlexCombined ||
     []
   );
 
 
-  renderCombinedTopThreeList(
+  renderCombinedTopThreeV32_(
     "governorateCombinedLeaders",
     leaders.governoratesCombined ||
     []
@@ -2956,7 +2970,7 @@ function renderLeaderboards(
 }
 
 
-function renderCombinedTopThreeList(
+function renderCombinedTopThreeV32_(
   containerId,
   rows
 ) {
@@ -2974,6 +2988,10 @@ function renderCombinedTopThreeList(
   }
 
 
+  /*
+   * Defensive frontend filtering too:
+   * no zero percentage and no zero points.
+   */
   const validRows =
     (
       rows ||
@@ -3390,6 +3408,35 @@ function downloadAkhlaqiatLogo() {
 
     showDashboardError(
       "لم يتم تحديد لوجو الثلث."
+    );
+
+    return;
+
+  }
+
+
+  window.open(
+    "https://drive.google.com/uc?export=download&id=" +
+    encodeURIComponent(
+      fileId
+    ),
+    "_blank",
+    "noopener"
+  );
+
+}
+
+
+function downloadAkhlaqiatLogoFromDrive_() {
+
+  const fileId =
+    DASHBOARD_CONFIG.logoFileId;
+
+
+  if (!fileId) {
+
+    showDashboardError(
+      "لم يتم تحديد ملف لوجو أخلاقيات."
     );
 
     return;
