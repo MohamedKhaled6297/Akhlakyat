@@ -12,11 +12,11 @@
 
   <meta
     name="description"
-    content="Dashboard مشروع أخلاقيات - إحصائيات الثلث والروابط المهمة"
+    content="الصفحة مشروع أخلاقيات - إحصائيات الثلث والروابط المهمة"
   >
 
   <title>
-    أخلاقيات 
+    أخلاقيات
   </title>
 
 
@@ -999,6 +999,20 @@ body {
   }
 }
 
+
+
+/* V29 - Combined ranking */
+
+.leader-metrics.single-ranking {
+  grid-template-columns: 1fr;
+}
+
+.leader-metrics.single-ranking .leader-metric-title small {
+  color: #8b959d;
+  font-size: 8px;
+  font-weight: 700;
+}
+
 </style>
 
 </head>
@@ -1017,7 +1031,7 @@ body {
       <div class="loader"></div>
 
       <strong>
-        جاري تحميل Dashboard أخلاقيات
+        جاري تحميل أخلاقيات
       </strong>
 
       <span>
@@ -1065,7 +1079,7 @@ body {
         </span>
 
         <h1>
-          Dashboard أخلاقيات
+          أخلاقيات
         </h1>
 
         <p>
@@ -1115,10 +1129,10 @@ body {
 
 
           <button
-            id="refreshDashboardButton"
+            id="refreshالصفحةButton"
             class="refresh-button"
             type="button">
-            تحديث Dashboard
+            تحديث البيانات
           </button>
 
 
@@ -1525,7 +1539,7 @@ body {
           </span>
 
           <h2>
-            🏆 الترتيب حسب V6 والنقاط
+            🏆 الترتيب حسب النسب والنقاط
           </h2>
 
         </div>
@@ -1557,38 +1571,24 @@ body {
           </div>
 
 
-          <div class="leader-metrics">
+          <div class="leader-metrics single-ranking">
 
             <div class="leader-metric-box">
 
               <div class="leader-metric-title">
 
                 <span>
-                  🏆 أعلى نسبة V6
+                  🏆 النسبة + النقاط
                 </span>
+
+                <small>
+                  أعلى 3 بدون أصفار
+                </small>
 
               </div>
 
               <div
-                id="cairoPercentLeaders"
-                class="top-three-list">
-              </div>
-
-            </div>
-
-
-            <div class="leader-metric-box">
-
-              <div class="leader-metric-title">
-
-                <span>
-                  ⭐ أعلى نقاط
-                </span>
-
-              </div>
-
-              <div
-                id="cairoPointsLeaders"
+                id="cairoCombinedLeaders"
                 class="top-three-list">
               </div>
 
@@ -1616,38 +1616,24 @@ body {
           </div>
 
 
-          <div class="leader-metrics">
+          <div class="leader-metrics single-ranking">
 
             <div class="leader-metric-box">
 
               <div class="leader-metric-title">
 
                 <span>
-                  🏆 أعلى نسبة V6
+                  🏆 النسبة + النقاط
                 </span>
+
+                <small>
+                  أعلى 3 بدون أصفار
+                </small>
 
               </div>
 
               <div
-                id="governoratePercentLeaders"
-                class="top-three-list">
-              </div>
-
-            </div>
-
-
-            <div class="leader-metric-box">
-
-              <div class="leader-metric-title">
-
-                <span>
-                  ⭐ أعلى نقاط
-                </span>
-
-              </div>
-
-              <div
-                id="governoratePointsLeaders"
+                id="governorateCombinedLeaders"
                 class="top-three-list">
               </div>
 
@@ -1812,7 +1798,7 @@ body {
       </strong>
 
       <span>
-        Dashboard التشجيعية العامة
+        الصفحة التشجيعية العامة
       </span>
 
     </footer>
@@ -1833,10 +1819,16 @@ const DASHBOARD_CONFIG = {
   systemUrl:
     "https://script.google.com/macros/s/AKfycbwmhq-k0fexP1qrMC2gH24TlNvfC3kL3ieA5lsb1nxLkcF1y8QferKu-X1odS6urLLWLg/exec",
 
-  logoLocalPath:
-    "images/akhlaqiat-logo.png",
+  /*
+   * الصورة التي تظهر أعلى اليمين.
+   */
+  displayLogoFileId:
+    "14EBeMsNF1LmfHTm35VNkAboK9zWxF4vX",
 
-  logoFileId:
+  /*
+   * لوجو الثلث الذي ينزله زر التحميل - يظل كما هو.
+   */
+  downloadLogoFileId:
     "1yo2xDMIn_YHQQ5_nYSmXiHLrl_jS-h8B",
 
   firstYear:
@@ -1852,7 +1844,7 @@ const DASHBOARD_CONFIG = {
         "اللائحة والقواعد المنظمة لمشروع أخلاقيات.",
 
       url:
-        "https://www.canva.com/design/DAG2-BTaPZE/fzCLWBPeELPszMOhzMh-kw/view?utm_content=DAG2-BTaPZE&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h80eceb9a0b",
+        "https://www.canva.com/design/DAG-Zuq73OI/SevdqCbYN20TdFv-1aOy8g/view?utm_content=DAG-Zuq73OI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hcdffe0df28",
 
       icon:
         "📘"
@@ -1866,7 +1858,7 @@ const DASHBOARD_CONFIG = {
         "استعراض الهيكل المركزي لفريق أخلاقيات.",
 
       url:
-        "https://canva.link/nashr-akhlaqat-team",
+        "https://canva.link/cvoc3dmvzc1yfkh",
 
       icon:
         "🏛️"
@@ -1880,7 +1872,7 @@ const DASHBOARD_CONFIG = {
         "توزيع وتقسيم اللجان على الفريق المركزي.",
 
       url:
-        "https://canva.link/nashr-akhlaqat-resala-team",
+        "https://canva.link/1p5flr7qagcauu4",
 
       icon:
         "🧩"
@@ -1930,17 +1922,17 @@ let dashboardRequestId = 0;
 
 document.addEventListener(
   "DOMContentLoaded",
-  initializeDashboard
+  initializeالصفحة
 );
 
 
-function initializeDashboard() {
+function initializeالصفحة() {
 
   setupStaticContent();
 
   setupFilters();
 
-  loadDashboard();
+  loadالصفحة();
 
 }
 
@@ -1975,10 +1967,6 @@ function setupStaticContent() {
 
   if (logo) {
 
-    let triedDriveFallback =
-      false;
-
-
     logo.onload =
       function () {
 
@@ -1995,28 +1983,6 @@ function setupStaticContent() {
     logo.onerror =
       function () {
 
-        if (
-          !triedDriveFallback &&
-          DASHBOARD_CONFIG.logoFileId
-        ) {
-
-          triedDriveFallback =
-            true;
-
-
-          this.src =
-            "https://drive.google.com/thumbnail?id=" +
-            encodeURIComponent(
-              DASHBOARD_CONFIG.logoFileId
-            ) +
-            "&sz=w1000";
-
-
-          return;
-
-        }
-
-
         this.style.display =
           "none";
 
@@ -2032,17 +1998,13 @@ function setupStaticContent() {
 
 
     logo.src =
-      DASHBOARD_CONFIG.logoLocalPath ||
-      (
-        "https://drive.google.com/thumbnail?id=" +
-        encodeURIComponent(
-          DASHBOARD_CONFIG.logoFileId
-        ) +
-        "&sz=w1000"
-      );
+      "https://drive.google.com/thumbnail?id=" +
+      encodeURIComponent(
+        DASHBOARD_CONFIG.displayLogoFileId
+      ) +
+      "&sz=w1200";
 
   }
-
 
   renderLinkCards(
     "linksGrid",
@@ -2074,7 +2036,7 @@ function setupFilters() {
 
   const refreshButton =
     document.getElementById(
-      "refreshDashboardButton"
+      "refreshالصفحةButton"
     );
 
 
@@ -2104,7 +2066,7 @@ function setupFilters() {
 
     thirdSelect.addEventListener(
       "change",
-      loadDashboard
+      loadالصفحة
     );
 
   }
@@ -2164,7 +2126,7 @@ function setupFilters() {
 
     yearSelect.addEventListener(
       "change",
-      loadDashboard
+      loadالصفحة
     );
 
   }
@@ -2174,7 +2136,7 @@ function setupFilters() {
 
     refreshButton.addEventListener(
       "click",
-      loadDashboard
+      loadالصفحة
     );
 
   }
@@ -2182,7 +2144,7 @@ function setupFilters() {
 }
 
 
-function loadDashboard() {
+function loadالصفحة() {
 
   const third =
     document.getElementById(
@@ -2200,7 +2162,7 @@ function loadDashboard() {
     "2026";
 
 
-  setDashboardLoading(
+  setالصفحةLoading(
     true
   );
 
@@ -2210,7 +2172,7 @@ function loadDashboard() {
 
 
   const callbackName =
-    "__akhlaqiatDashboardCallback_" +
+    "__akhlaqiatالصفحةCallback_" +
     requestId;
 
 
@@ -2242,12 +2204,12 @@ function loadDashboard() {
         !response.success
       ) {
 
-        showDashboardError(
+        showالصفحةError(
           response?.message ||
-          "تعذر تحميل بيانات Dashboard."
+          "تعذر تحميل بيانات الصفحة."
         );
 
-        setDashboardLoading(
+        setالصفحةLoading(
           false
         );
 
@@ -2256,12 +2218,12 @@ function loadDashboard() {
       }
 
 
-      renderDashboard(
+      renderالصفحة(
         response
       );
 
 
-      setDashboardLoading(
+      setالصفحةLoading(
         false
       );
 
@@ -2278,7 +2240,7 @@ function loadDashboard() {
     new URLSearchParams({
 
       action:
-        "publicDashboard",
+        "publicالصفحة",
 
       third:
         third,
@@ -2323,12 +2285,12 @@ function loadDashboard() {
       }
 
 
-      showDashboardError(
+      showالصفحةError(
         "تعذر الاتصال بمنظومة أخلاقيات. تأكد من نشر آخر Version من Apps Script."
       );
 
 
-      setDashboardLoading(
+      setالصفحةLoading(
         false
       );
 
@@ -2381,7 +2343,7 @@ function cleanupJsonp(
 }
 
 
-function renderDashboard(
+function renderالصفحة(
   data
 ) {
 
@@ -2771,44 +2733,25 @@ function renderLeaderboards(
   leaders
 ) {
 
-  renderTopThreeList(
-    "cairoPercentLeaders",
-    leaders.cairoAlexByPercent ||
-    [],
-    "percent"
+  renderCombinedTopThreeList(
+    "cairoCombinedLeaders",
+    leaders.cairoAlexCombined ||
+    []
   );
 
 
-  renderTopThreeList(
-    "cairoPointsLeaders",
-    leaders.cairoAlexByPoints ||
-    [],
-    "points"
-  );
-
-
-  renderTopThreeList(
-    "governoratePercentLeaders",
-    leaders.governoratesByPercent ||
-    [],
-    "percent"
-  );
-
-
-  renderTopThreeList(
-    "governoratePointsLeaders",
-    leaders.governoratesByPoints ||
-    [],
-    "points"
+  renderCombinedTopThreeList(
+    "governorateCombinedLeaders",
+    leaders.governoratesCombined ||
+    []
   );
 
 }
 
 
-function renderTopThreeList(
+function renderCombinedTopThreeList(
   containerId,
-  rows,
-  primaryMetric
+  rows
 ) {
 
   const container =
@@ -2824,14 +2767,40 @@ function renderTopThreeList(
   }
 
 
-  if (
-    !rows ||
-    !rows.length
-  ) {
+  const validRows =
+    (
+      rows ||
+      []
+    )
+    .filter(
+      function (
+        row
+      ) {
+
+        return (
+          Number(
+            row.percent ||
+            0
+          ) > 0 &&
+          Number(
+            row.points ||
+            0
+          ) > 0
+        );
+
+      }
+    )
+    .slice(
+      0,
+      3
+    );
+
+
+  if (!validRows.length) {
 
     container.innerHTML =
       emptyState(
-        "لا توجد نتائج V6 مطابقة."
+        "لا توجد نتائج بنسب ونقاط أكبر من صفر."
       );
 
     return;
@@ -2840,7 +2809,7 @@ function renderTopThreeList(
 
 
   container.innerHTML =
-    rows.map(
+    validRows.map(
       function (
         row,
         index
@@ -2857,29 +2826,6 @@ function renderTopThreeList(
           formatNumber(
             row.points
           );
-
-
-        const primary =
-          primaryMetric ===
-            "points"
-            ? (
-                points +
-                " نقطة"
-              )
-            : percentage;
-
-
-        const secondary =
-          primaryMetric ===
-            "points"
-            ? (
-                "V6 " +
-                percentage
-              )
-            : (
-                points +
-                " نقطة"
-              );
 
 
         return `
@@ -2905,11 +2851,12 @@ function renderTopThreeList(
             <div class="top-three-values">
 
               <strong>
-                ${escapeHtml(primary)}
+                ${escapeHtml(percentage)}
               </strong>
 
               <small>
-                ${escapeHtml(secondary)}
+                ${escapeHtml(points)}
+                نقطة
               </small>
 
             </div>
@@ -3228,116 +3175,14 @@ function renderLinkCards(
 
 function downloadAkhlaqiatLogo() {
 
-  /*
-   * Prefer the repository image when it exists.
-   * If not, use Google Drive's download endpoint.
-   */
-  const localPath =
-    (
-      DASHBOARD_CONFIG.logoLocalPath ||
-      ""
-    )
-    .trim();
-
-
-  if (localPath) {
-
-    fetch(
-      localPath,
-      {
-        cache:
-          "no-store"
-      }
-    )
-    .then(
-      function (
-        response
-      ) {
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Local logo not found."
-          );
-
-        }
-
-
-        return response.blob();
-
-      }
-    )
-    .then(
-      function (
-        blob
-      ) {
-
-        const url =
-          URL.createObjectURL(
-            blob
-          );
-
-
-        const link =
-          document.createElement(
-            "a"
-          );
-
-
-        link.href =
-          url;
-
-
-        link.download =
-          "Akhlaqiat-Logo.png";
-
-
-        document.body.appendChild(
-          link
-        );
-
-
-        link.click();
-
-
-        link.remove();
-
-
-        URL.revokeObjectURL(
-          url
-        );
-
-      }
-    )
-    .catch(
-      function () {
-
-        downloadAkhlaqiatLogoFromDrive_();
-
-      }
-    );
-
-
-    return;
-
-  }
-
-
-  downloadAkhlaqiatLogoFromDrive_();
-
-}
-
-
-function downloadAkhlaqiatLogoFromDrive_() {
-
   const fileId =
-    DASHBOARD_CONFIG.logoFileId;
+    DASHBOARD_CONFIG.downloadLogoFileId;
 
 
   if (!fileId) {
 
-    showDashboardError(
-      "لم يتم تحديد ملف لوجو أخلاقيات."
+    showالصفحةError(
+      "لم يتم تحديد لوجو الثلث."
     );
 
     return;
@@ -3357,7 +3202,7 @@ function downloadAkhlaqiatLogoFromDrive_() {
 }
 
 
-function setDashboardLoading(
+function setالصفحةLoading(
   loading
 ) {
 
@@ -3369,7 +3214,7 @@ function setDashboardLoading(
 
   const button =
     document.getElementById(
-      "refreshDashboardButton"
+      "refreshالصفحةButton"
     );
 
 
@@ -3396,14 +3241,14 @@ function setDashboardLoading(
     button.textContent =
       loading
         ? "جاري التحديث..."
-        : "تحديث Dashboard";
+        : "تحديث البيانات";
 
   }
 
 }
 
 
-function showDashboardError(
+function showالصفحةError(
   message
 ) {
 
