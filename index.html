@@ -1996,7 +1996,7 @@ function initializeDashboard() {
 
   setupFilters();
 
-  loadDashboard();
+  loadDashboard(false);
 
 }
 
@@ -2130,7 +2130,13 @@ function setupFilters() {
 
     thirdSelect.addEventListener(
       "change",
-      loadDashboard
+      function () {
+
+        loadDashboard(
+          false
+        );
+
+      }
     );
 
   }
@@ -2190,7 +2196,13 @@ function setupFilters() {
 
     yearSelect.addEventListener(
       "change",
-      loadDashboard
+      function () {
+
+        loadDashboard(
+          false
+        );
+
+      }
     );
 
   }
@@ -2200,7 +2212,13 @@ function setupFilters() {
 
     refreshButton.addEventListener(
       "click",
-      loadDashboard
+      function () {
+
+        loadDashboard(
+          true
+        );
+
+      }
     );
 
   }
@@ -2208,7 +2226,7 @@ function setupFilters() {
 }
 
 
-function loadDashboard() {
+function loadDashboard(forceRefresh) {
 
   const third =
     document.getElementById(
@@ -2311,6 +2329,11 @@ function loadDashboard() {
 
       year:
         year,
+
+      force:
+        forceRefresh
+          ? "1"
+          : "0",
 
       callback:
         callbackName,
@@ -3494,7 +3517,7 @@ function setDashboardLoading(
 
     button.textContent =
       loading
-        ? "جاري التحديث..."
+        ? "جاري قراءة أحدث البيانات..."
         : "تحديث البيانات";
 
   }
