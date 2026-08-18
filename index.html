@@ -16,7 +16,7 @@
   >
 
   <title>
-    أخلاقيات | Dashboard
+    أخلاقيات 
   </title>
 
 
@@ -836,7 +836,170 @@ body {
   }
 }
 
-  </style>
+  
+
+/* =========================================
+   V28 LEADERS
+========================================= */
+
+.leaders-panel {
+  margin-top: 13px;
+}
+
+.leader-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.leader-group {
+  padding: 16px;
+  border: 1px solid #dfe8e5;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #ffffff, #f8fbfa);
+}
+
+.leader-group-heading {
+  margin-bottom: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid #e7ecee;
+}
+
+.leader-group-heading span {
+  display: block;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.leader-group-heading h3 {
+  margin: 3px 0 0;
+  font-size: 16px;
+}
+
+.leader-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.leader-metric-box {
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #e4e9eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.leader-metric-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  margin-bottom: 8px;
+  color: #53606b;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.top-three-list {
+  display: grid;
+  gap: 7px;
+}
+
+.top-three-row {
+  display: grid;
+  grid-template-columns: 31px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid #e7ecee;
+  border-radius: 11px;
+  background: #fbfcfc;
+}
+
+.top-three-row:first-child {
+  border-color: #ead28b;
+  background: #fffaf0;
+}
+
+.top-three-rank {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: #14654f;
+  background: #e8f6f1;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.top-three-row:first-child .top-three-rank {
+  color: #76570c;
+  background: #fff0bd;
+}
+
+.top-three-name {
+  min-width: 0;
+}
+
+.top-three-name strong {
+  display: block;
+  overflow: hidden;
+  color: #26323c;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-three-name small {
+  display: block;
+  margin-top: 2px;
+  color: #89939b;
+  font-size: 8px;
+}
+
+.top-three-values {
+  min-width: 65px;
+  text-align: left;
+}
+
+.top-three-values strong {
+  display: block;
+  color: #13654f;
+  font-size: 11px;
+}
+
+.top-three-values small {
+  display: block;
+  color: #805e0c;
+  font-size: 8px;
+}
+
+.logo-download-link {
+  color: #2f4951;
+  border: 1px solid #d8e3df;
+  background: #f7fbfa;
+}
+
+.logo-download-link:hover {
+  background: #eef8f4;
+}
+
+@media (max-width: 900px) {
+  .leader-groups {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .leader-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
 
 </head>
 
@@ -977,6 +1140,13 @@ body {
             class="secondary-link">
             🔗 الروابط المهمة
           </a>
+
+          <button
+            type="button"
+            class="secondary-link logo-download-link"
+            onclick="downloadAkhlaqiatLogo()">
+            ⬇️ تحميل لوجو أخلاقيات
+          </button>
 
         </div>
 
@@ -1342,64 +1512,153 @@ body {
 
 
 
-    <!-- RANKINGS -->
+    <!-- TOP THREE LEADERS -->
 
-    <section class="ranking-grid">
+    <section class="panel leaders-panel">
+
+      <div class="panel-heading">
+
+        <div>
+
+          <span class="panel-kicker">
+            أوائل الثلث
+          </span>
+
+          <h2>
+            🏆 الترتيب حسب V6 والنقاط
+          </h2>
+
+        </div>
+
+        <span class="panel-icon">
+          🥇
+        </span>
+
+      </div>
 
 
-      <article class="panel">
+      <div class="leader-groups">
 
-        <div class="panel-heading">
 
-          <div>
+        <!-- CAIRO / ALEX -->
 
-            <span class="panel-kicker">
-              للتشجيع
+        <div class="leader-group">
+
+          <div class="leader-group-heading">
+
+            <span>
+              القاهرة والإسكندرية
             </span>
 
-            <h2>
-              🏆 أعلى الفروع والمحافظات
-            </h2>
+            <h3>
+              أول 3 فرق
+            </h3>
+
+          </div>
+
+
+          <div class="leader-metrics">
+
+            <div class="leader-metric-box">
+
+              <div class="leader-metric-title">
+
+                <span>
+                  🏆 أعلى نسبة V6
+                </span>
+
+              </div>
+
+              <div
+                id="cairoPercentLeaders"
+                class="top-three-list">
+              </div>
+
+            </div>
+
+
+            <div class="leader-metric-box">
+
+              <div class="leader-metric-title">
+
+                <span>
+                  ⭐ أعلى نقاط
+                </span>
+
+              </div>
+
+              <div
+                id="cairoPointsLeaders"
+                class="top-three-list">
+              </div>
+
+            </div>
 
           </div>
 
         </div>
 
 
-        <div
-          id="locationRanking"
-          class="ranking-list">
-        </div>
+        <!-- GOVERNORATES -->
 
-      </article>
+        <div class="leader-group">
 
+          <div class="leader-group-heading">
 
-      <article class="panel">
-
-        <div class="panel-heading">
-
-          <div>
-
-            <span class="panel-kicker">
-              نشاط المسابقة
+            <span>
+              المحافظات
             </span>
 
-            <h2>
-              ⭐ أعلى الأنشطة
-            </h2>
+            <h3>
+              أول 3 محافظات
+            </h3>
+
+          </div>
+
+
+          <div class="leader-metrics">
+
+            <div class="leader-metric-box">
+
+              <div class="leader-metric-title">
+
+                <span>
+                  🏆 أعلى نسبة V6
+                </span>
+
+              </div>
+
+              <div
+                id="governoratePercentLeaders"
+                class="top-three-list">
+              </div>
+
+            </div>
+
+
+            <div class="leader-metric-box">
+
+              <div class="leader-metric-title">
+
+                <span>
+                  ⭐ أعلى نقاط
+                </span>
+
+              </div>
+
+              <div
+                id="governoratePointsLeaders"
+                class="top-three-list">
+              </div>
+
+            </div>
 
           </div>
 
         </div>
 
 
-        <div
-          id="activityRanking"
-          class="ranking-list">
-        </div>
-
-      </article>
-
+      </div>
 
     </section>
 
@@ -2283,17 +2542,9 @@ function renderDashboard(
   );
 
 
-  renderRanking(
-    "locationRanking",
-    data.topLocations ||
-    []
-  );
-
-
-  renderRanking(
-    "activityRanking",
-    data.topActivities ||
-    []
+  renderLeaderboards(
+    data.leaders ||
+    {}
   );
 
 
@@ -2512,6 +2763,163 @@ function renderAcceptance(
       pending
     )
   );
+
+}
+
+
+function renderLeaderboards(
+  leaders
+) {
+
+  renderTopThreeList(
+    "cairoPercentLeaders",
+    leaders.cairoAlexByPercent ||
+    [],
+    "percent"
+  );
+
+
+  renderTopThreeList(
+    "cairoPointsLeaders",
+    leaders.cairoAlexByPoints ||
+    [],
+    "points"
+  );
+
+
+  renderTopThreeList(
+    "governoratePercentLeaders",
+    leaders.governoratesByPercent ||
+    [],
+    "percent"
+  );
+
+
+  renderTopThreeList(
+    "governoratePointsLeaders",
+    leaders.governoratesByPoints ||
+    [],
+    "points"
+  );
+
+}
+
+
+function renderTopThreeList(
+  containerId,
+  rows,
+  primaryMetric
+) {
+
+  const container =
+    document.getElementById(
+      containerId
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  if (
+    !rows ||
+    !rows.length
+  ) {
+
+    container.innerHTML =
+      emptyState(
+        "لا توجد نتائج V6 مطابقة."
+      );
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    rows.map(
+      function (
+        row,
+        index
+      ) {
+
+        const percentage =
+          row.percentDisplay ||
+          formatPercent(
+            row.percent
+          );
+
+
+        const points =
+          formatNumber(
+            row.points
+          );
+
+
+        const primary =
+          primaryMetric ===
+            "points"
+            ? (
+                points +
+                " نقطة"
+              )
+            : percentage;
+
+
+        const secondary =
+          primaryMetric ===
+            "points"
+            ? (
+                "V6 " +
+                percentage
+              )
+            : (
+                points +
+                " نقطة"
+              );
+
+
+        return `
+          <div class="top-three-row">
+
+            <span class="top-three-rank">
+              ${index + 1}
+            </span>
+
+            <div class="top-three-name">
+
+              <strong title="${escapeAttribute(row.name || "")}">
+                ${escapeHtml(row.name || "—")}
+              </strong>
+
+              <small>
+                ${formatNumber(row.participations || 0)}
+                مشاركة
+              </small>
+
+            </div>
+
+            <div class="top-three-values">
+
+              <strong>
+                ${escapeHtml(primary)}
+              </strong>
+
+              <small>
+                ${escapeHtml(secondary)}
+              </small>
+
+            </div>
+
+          </div>
+        `;
+
+      }
+    )
+    .join("");
 
 }
 
@@ -2814,6 +3222,137 @@ function renderLinkCards(
       }
     )
     .join("");
+
+}
+
+
+function downloadAkhlaqiatLogo() {
+
+  /*
+   * Prefer the repository image when it exists.
+   * If not, use Google Drive's download endpoint.
+   */
+  const localPath =
+    (
+      DASHBOARD_CONFIG.logoLocalPath ||
+      ""
+    )
+    .trim();
+
+
+  if (localPath) {
+
+    fetch(
+      localPath,
+      {
+        cache:
+          "no-store"
+      }
+    )
+    .then(
+      function (
+        response
+      ) {
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Local logo not found."
+          );
+
+        }
+
+
+        return response.blob();
+
+      }
+    )
+    .then(
+      function (
+        blob
+      ) {
+
+        const url =
+          URL.createObjectURL(
+            blob
+          );
+
+
+        const link =
+          document.createElement(
+            "a"
+          );
+
+
+        link.href =
+          url;
+
+
+        link.download =
+          "Akhlaqiat-Logo.png";
+
+
+        document.body.appendChild(
+          link
+        );
+
+
+        link.click();
+
+
+        link.remove();
+
+
+        URL.revokeObjectURL(
+          url
+        );
+
+      }
+    )
+    .catch(
+      function () {
+
+        downloadAkhlaqiatLogoFromDrive_();
+
+      }
+    );
+
+
+    return;
+
+  }
+
+
+  downloadAkhlaqiatLogoFromDrive_();
+
+}
+
+
+function downloadAkhlaqiatLogoFromDrive_() {
+
+  const fileId =
+    DASHBOARD_CONFIG.logoFileId;
+
+
+  if (!fileId) {
+
+    showDashboardError(
+      "لم يتم تحديد ملف لوجو أخلاقيات."
+    );
+
+    return;
+
+  }
+
+
+  window.open(
+    "https://drive.google.com/uc?export=download&id=" +
+    encodeURIComponent(
+      fileId
+    ),
+    "_blank",
+    "noopener"
+  );
 
 }
 
