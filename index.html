@@ -1,29 +1,758 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <title>أخلاقيات</title>
-  <link rel="stylesheet" href="style.css">
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Dashboard مشروع أخلاقيات - إحصائيات الثلث والروابط المهمة"
+  >
+
+  <title>
+    أخلاقيات | Dashboard
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
+
 <body>
 
+
+  <div
+    id="loadingOverlay"
+    class="loading-overlay show"
+  >
+
+    <div class="loading-card">
+
+      <div class="loader"></div>
+
+      <strong>
+        جاري تحميل Dashboard أخلاقيات
+      </strong>
+
+      <span>
+        يتم تجهيز إحصائيات الثلث...
+      </span>
+
+    </div>
+
+  </div>
+
+
   <main class="page-shell">
-    <section class="hero">
-      <div class="brand-mark">أخلاقيات</div>
-      <h1>منظومة أخلاقيات</h1>
-      <p>اختر الخدمة المطلوبة للمتابعة.</p>
+
+
+    <!-- HERO -->
+
+    <section class="hero-card">
+
+
+      <div class="brand-panel">
+
+        <div class="brand-logo-shell">
+
+          <img
+            id="projectLogo"
+            class="brand-logo"
+            alt="لوجو أخلاقيات"
+          >
+
+          <div
+            id="logoFallback"
+            class="logo-fallback">
+            أخلاقيات
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-content">
+
+        <span class="eyebrow">
+          مشروع أخلاقيات
+        </span>
+
+        <h1>
+          Dashboard أخلاقيات
+        </h1>
+
+        <p>
+          متابعة إنجازات المسابقة والتكريمات وجودة الفرق،
+          مع جميع روابط أخلاقيات المهمة في مكان واحد.
+        </p>
+
+
+        <div class="hero-controls">
+
+
+          <label class="filter-control">
+
+            <span>
+              الثلث
+            </span>
+
+            <select id="thirdSelect">
+
+              <option value="الاول">
+                الثلث الأول — يناير إلى أبريل
+              </option>
+
+              <option value="الثاني">
+                الثلث الثاني — مايو إلى أغسطس
+              </option>
+
+              <option value="الثالث">
+                الثلث الثالث — سبتمبر إلى ديسمبر
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label class="filter-control">
+
+            <span>
+              السنة
+            </span>
+
+            <select id="yearSelect">
+            </select>
+
+          </label>
+
+
+          <button
+            id="refreshDashboardButton"
+            class="refresh-button"
+            type="button">
+            تحديث Dashboard
+          </button>
+
+
+        </div>
+
+
+        <div class="hero-actions">
+
+          <a
+            id="systemButton"
+            class="primary-link"
+            target="_blank"
+            rel="noopener noreferrer">
+            🚀 الدخول إلى منظومة أخلاقيات
+          </a>
+
+          <a
+            href="#importantLinks"
+            class="secondary-link">
+            🔗 الروابط المهمة
+          </a>
+
+        </div>
+
+
+      </div>
+
+
     </section>
 
-    <section class="menu-grid" id="menuGrid" aria-label="الخدمات"></section>
 
-    <footer>
-      <span>أخلاقيات</span>
+
+    <!-- STATUS -->
+
+    <div class="dashboard-status">
+
+      <span id="periodLabel">
+        —
+      </span>
+
+      <span class="status-separator">
+        •
+      </span>
+
+      <span id="lastUpdated">
+        آخر تحديث: —
+      </span>
+
+    </div>
+
+
+
+    <!-- SUMMARY -->
+
+    <section class="metric-grid">
+
+
+      <article class="metric-card contestants">
+
+        <span class="metric-icon">
+          👥
+        </span>
+
+        <span class="metric-label">
+          إجمالي المتسابقين
+        </span>
+
+        <strong
+          id="metricContestants"
+          class="metric-value">
+          0
+        </strong>
+
+        <small>
+          Unique برقم التليفون
+        </small>
+
+      </article>
+
+
+      <article class="metric-card participations">
+
+        <span class="metric-icon">
+          📋
+        </span>
+
+        <span class="metric-label">
+          إجمالي المشاركات
+        </span>
+
+        <strong
+          id="metricParticipations"
+          class="metric-value">
+          0
+        </strong>
+
+        <small>
+          خلال الثلث المختار
+        </small>
+
+      </article>
+
+
+      <article class="metric-card accepted">
+
+        <span class="metric-icon">
+          ✅
+        </span>
+
+        <span class="metric-label">
+          المشاركات المقبولة
+        </span>
+
+        <strong
+          id="metricAccepted"
+          class="metric-value">
+          0
+        </strong>
+
+        <small id="acceptedPercentText">
+          0%
+        </small>
+
+      </article>
+
+
+      <article class="metric-card rejected">
+
+        <span class="metric-icon">
+          ❌
+        </span>
+
+        <span class="metric-label">
+          غير المقبولة
+        </span>
+
+        <strong
+          id="metricRejected"
+          class="metric-value">
+          0
+        </strong>
+
+        <small id="pendingText">
+          في انتظار التقييم: 0
+        </small>
+
+      </article>
+
+
+      <article class="metric-card points">
+
+        <span class="metric-icon">
+          ⭐
+        </span>
+
+        <span class="metric-label">
+          إجمالي النقاط
+        </span>
+
+        <strong
+          id="metricPoints"
+          class="metric-value">
+          0
+        </strong>
+
+        <small>
+          نقاط المشاركات
+        </small>
+
+      </article>
+
+
+      <article class="metric-card ceremonies">
+
+        <span class="metric-icon">
+          🎊
+        </span>
+
+        <span class="metric-label">
+          حفلات التكريم
+        </span>
+
+        <strong
+          id="metricCeremonies"
+          class="metric-value">
+          0
+        </strong>
+
+        <small>
+          عدد الحفلات المسجلة
+        </small>
+
+      </article>
+
+
+      <article class="metric-card honored">
+
+        <span class="metric-icon">
+          🏅
+        </span>
+
+        <span class="metric-label">
+          المكرمون الفعليون / المرفوعون
+        </span>
+
+        <strong
+          id="metricHonored"
+          class="metric-value compact">
+          0 / 0
+        </strong>
+
+        <small id="honoringMatchText">
+          نسبة المطابقة 0%
+        </small>
+
+      </article>
+
+
+      <article class="metric-card bonus">
+
+        <span class="metric-icon">
+          🎁
+        </span>
+
+        <span class="metric-label">
+          إجمالي البونص
+        </span>
+
+        <strong
+          id="metricBonus"
+          class="metric-value">
+          0
+        </strong>
+
+        <small>
+          المشاركات + التكريمات
+        </small>
+
+      </article>
+
+
+    </section>
+
+
+
+    <!-- ANALYTICS ROW -->
+
+    <section class="analytics-grid">
+
+
+      <!-- MONTHLY -->
+
+      <article class="panel">
+
+        <div class="panel-heading">
+
+          <div>
+
+            <span class="panel-kicker">
+              حركة المسابقة
+            </span>
+
+            <h2>
+              المشاركات حسب الشهر
+            </h2>
+
+          </div>
+
+          <span class="panel-icon">
+            📊
+          </span>
+
+        </div>
+
+
+        <div
+          id="monthlyChart"
+          class="monthly-chart">
+        </div>
+
+      </article>
+
+
+      <!-- ACCEPTANCE -->
+
+      <article class="panel">
+
+        <div class="panel-heading">
+
+          <div>
+
+            <span class="panel-kicker">
+              جودة المشاركات
+            </span>
+
+            <h2>
+              حالة التقييم
+            </h2>
+
+          </div>
+
+          <span class="panel-icon">
+            🎯
+          </span>
+
+        </div>
+
+
+        <div class="acceptance-layout">
+
+          <div
+            id="acceptanceDonut"
+            class="acceptance-donut">
+
+            <div class="donut-center">
+
+              <strong id="donutPercent">
+                0%
+              </strong>
+
+              <span>
+                مقبول
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <div class="legend">
+
+            <div class="legend-row">
+
+              <span class="legend-dot accepted-dot"></span>
+
+              <span>
+                مقبول
+              </span>
+
+              <strong id="legendAccepted">
+                0
+              </strong>
+
+            </div>
+
+
+            <div class="legend-row">
+
+              <span class="legend-dot rejected-dot"></span>
+
+              <span>
+                غير مقبول
+              </span>
+
+              <strong id="legendRejected">
+                0
+              </strong>
+
+            </div>
+
+
+            <div class="legend-row">
+
+              <span class="legend-dot pending-dot"></span>
+
+              <span>
+                لم يتم تقييمه
+              </span>
+
+              <strong id="legendPending">
+                0
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+    </section>
+
+
+
+    <!-- RANKINGS -->
+
+    <section class="ranking-grid">
+
+
+      <article class="panel">
+
+        <div class="panel-heading">
+
+          <div>
+
+            <span class="panel-kicker">
+              للتشجيع
+            </span>
+
+            <h2>
+              🏆 أعلى الفروع والمحافظات
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="locationRanking"
+          class="ranking-list">
+        </div>
+
+      </article>
+
+
+      <article class="panel">
+
+        <div class="panel-heading">
+
+          <div>
+
+            <span class="panel-kicker">
+              نشاط المسابقة
+            </span>
+
+            <h2>
+              ⭐ أعلى الأنشطة
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div
+          id="activityRanking"
+          class="ranking-list">
+        </div>
+
+      </article>
+
+
+    </section>
+
+
+
+    <!-- EVALUATOR -->
+
+    <section class="panel evaluator-panel">
+
+      <div class="panel-heading">
+
+        <div>
+
+          <span class="panel-kicker">
+            ملاحظات المقيمين
+          </span>
+
+          <h2>
+            متوسط جودة الفرق
+          </h2>
+
+        </div>
+
+        <span class="panel-icon">
+          ⭐
+        </span>
+
+      </div>
+
+
+      <div class="evaluator-layout">
+
+
+        <div class="rating-main">
+
+          <span>
+            متوسط Rate
+          </span>
+
+          <strong id="evaluatorAverage">
+            0.00
+          </strong>
+
+          <small>
+            من 5
+          </small>
+
+
+          <div
+            id="ratingStars"
+            class="rating-stars">
+            ☆☆☆☆☆
+          </div>
+
+
+          <span
+            id="evaluatorCount"
+            class="rating-count">
+            0 تقييم
+          </span>
+
+        </div>
+
+
+        <div
+          id="ratingDistribution"
+          class="rating-distribution">
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+
+    <!-- LINKS -->
+
+    <section
+      id="importantLinks"
+      class="panel links-panel">
+
+      <div class="panel-heading">
+
+        <div>
+
+          <span class="panel-kicker">
+            أخلاقيات
+          </span>
+
+          <h2>
+            الروابط المهمة
+          </h2>
+
+        </div>
+
+        <span class="panel-icon">
+          🔗
+        </span>
+
+      </div>
+
+
+      <div
+        id="linksGrid"
+        class="links-grid">
+      </div>
+
+    </section>
+
+
+
+    <!-- VIDEOS -->
+
+    <section class="panel links-panel">
+
+      <div class="panel-heading">
+
+        <div>
+
+          <span class="panel-kicker">
+            شرح ومساعدة
+          </span>
+
+          <h2>
+            فيديوهات توضيحية
+          </h2>
+
+        </div>
+
+        <span class="panel-icon">
+          🎥
+        </span>
+
+      </div>
+
+
+      <div
+        id="videosGrid"
+        class="links-grid">
+      </div>
+
+    </section>
+
+
+
+    <footer class="footer">
+
+      <strong>
+        أخلاقيات
+      </strong>
+
+      <span>
+        Dashboard التشجيعية العامة
+      </span>
+
     </footer>
+
+
   </main>
 
+
   <script src="config.js"></script>
+
   <script src="app.js"></script>
+
+
 </body>
+
 </html>
